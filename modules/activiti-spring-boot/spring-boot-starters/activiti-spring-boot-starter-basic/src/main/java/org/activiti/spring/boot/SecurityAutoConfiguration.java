@@ -1,9 +1,9 @@
 /* Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,47 +35,46 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @author Josh Long
  */
 @Configuration
-@AutoConfigureBefore(org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration.class)
+@AutoConfigureBefore(org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class)
 public class SecurityAutoConfiguration {
 
-  @Configuration
-  @ConditionalOnClass( UserDetailsService.class)
-  public static class UserDetailsServiceConfiguration
-          extends GlobalAuthenticationConfigurerAdapter {
+    @Configuration
+    @ConditionalOnClass(UserDetailsService.class)
+    public static class UserDetailsServiceConfiguration
+            extends GlobalAuthenticationConfigurerAdapter {
 
-    @Override
-    public void init(AuthenticationManagerBuilder auth) throws Exception {
-      auth.userDetailsService( userDetailsService());
+        @Override
+        public void init(AuthenticationManagerBuilder auth) throws Exception {
+            auth.userDetailsService(userDetailsService());
+        }
+
+        @Bean
+        public UserDetailsService userDetailsService() {
+            return new IdentityServiceUserDetailsService(this.identityService);
+        }
+
+        @Autowired
+        private IdentityService identityService;
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-      return new IdentityServiceUserDetailsService(this.identityService);
-    }
+    @Configuration
+    @ConditionalOnClass(name = {"org.activiti.rest.service.api.RestUrls", "org.springframework.web.servlet.DispatcherServlet"})
+    @EnableWebSecurity
+    public static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private IdentityService identityService;
-  }
-  
-  @Configuration
-  @ConditionalOnClass(name = {"org.activiti.rest.service.api.RestUrls", "org.springframework.web.servlet.DispatcherServlet"})
-  @EnableWebSecurity
-  public static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+        @Bean
+        public AuthenticationProvider authenticationProvider() {
+            return new BasicAuthenticationProvider();
+        }
 
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-      return new BasicAuthenticationProvider();
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http.authenticationProvider(authenticationProvider())
+                    .csrf().disable()
+                    .authorizeRequests()
+                    .anyRequest().authenticated()
+                    .and()
+                    .httpBasic();
+        }
     }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-      http
-        .authenticationProvider(authenticationProvider())
-        .csrf().disable()
-        .authorizeRequests()
-          .anyRequest().authenticated()
-          .and()
-        .httpBasic();
-    }
-  }
 }

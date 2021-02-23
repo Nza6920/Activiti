@@ -81,5 +81,8 @@ public class ActivitiInboundGateway extends MessagingGatewaySupport {
         receiveTaskActivityBehavior.leave(execution);
     }
 
-
+    @Override
+    public long messageCount() {
+        return 0;
+    }
 }
