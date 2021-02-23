@@ -96,7 +96,6 @@
 			<optional>true</optional>
 		</dependency>
 
-
 		<!-- boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

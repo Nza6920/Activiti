@@ -1,13 +1,12 @@
 Activiti
 ========
+> # 适配 springboot-2.3.4.RELEASE 版本
+>> #### 1. cd modules\activiti-spring-boot
+>> #### 2. mvn install -DskipTest
+>> #### 3. 使用 
+    <dependency>
+        <groupId>org.activiti</groupId>  
+        <artifactId>activiti-spring-boot-starter-basic</artifactId>          
+        <version>6.0.0-boot2</version>  
+    </dependency> 
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.activiti/activiti-engine/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.activiti/activiti-engine)
-
-Homepage: http://activiti.org/
-
-
-Activiti is a light-weight workflow and Business Process Management (BPM) Platform targeted at business people, developers and system admins. Its core is a super-fast and rock-solid BPMN 2 process engine for Java. It's open-source and distributed under the Apache license. Activiti runs in any Java application, on a server, on a cluster or in the cloud. It integrates perfectly with Spring, it is extremely lightweight and based on simple concepts. 
-
-Activiti JIRA: https://activiti.atlassian.net
-
-Activiti QA: http://build.activiti.org:8080
