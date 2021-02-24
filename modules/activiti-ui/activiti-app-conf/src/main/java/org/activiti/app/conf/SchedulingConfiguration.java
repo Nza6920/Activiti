@@ -24,8 +24,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-@Configuration
-@EnableScheduling
+//@Configuration
+//@EnableScheduling
 public class SchedulingConfiguration implements SchedulingConfigurer {
 
     private final Logger log = LoggerFactory.getLogger(SchedulingConfiguration.class);
@@ -34,7 +34,7 @@ public class SchedulingConfiguration implements SchedulingConfigurer {
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
         taskRegistrar.setScheduler(taskExecutor());
     }
-    
+
     @Bean(destroyMethod="shutdownNow")
     public Executor taskExecutor() {
     	ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(5);

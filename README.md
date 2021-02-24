@@ -1,13 +1,17 @@
 Activiti
 ========
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.activiti/activiti-engine/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.activiti/activiti-engine)
+> ## 升级 activiti-spring-boot
+> 1. cd \modules\activiti-spring-boot 
+> 2. mvn clean install source:jar -Dmaven.test.skip=true
 
-Homepage: http://activiti.org/
+
+> ## 升级 activiti-ui 
+> 1. cd \modules\activiti-ui
+> 2. mvn clean install source:jar -Dmaven.test.skip=true
+
+> ## 测试访问
+> 1. cd \modules\activiti-ui\activiti-app
+> 2. mvn clean tomcat7:run
 
 
-Activiti is a light-weight workflow and Business Process Management (BPM) Platform targeted at business people, developers and system admins. Its core is a super-fast and rock-solid BPMN 2 process engine for Java. It's open-source and distributed under the Apache license. Activiti runs in any Java application, on a server, on a cluster or in the cloud. It integrates perfectly with Spring, it is extremely lightweight and based on simple concepts. 
-
-Activiti JIRA: https://activiti.atlassian.net
-
-Activiti QA: http://build.activiti.org:8080
